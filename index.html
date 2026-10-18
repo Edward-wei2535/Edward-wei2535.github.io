@@ -1,509 +1,676 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Zhanchen Wei (魏湛郴) · Jilin Agricultural University</title>
-<meta name="description" content="Zhanchen Wei is a master's student at Jilin Agricultural University working on lightweight object detection for edible and toxic mushroom recognition in complex ecological environments.">
+<meta name="description" content="Zhanchen Wei — research engineer in applied AI, working on lightweight visual perception and LLM applications.">
 <meta name="author" content="Zhanchen Wei">
 <!-- 部署后把下面这行的注释去掉，换成你的真实网址 -->
-<!-- <link rel="canonical" href="https://你的用户名.github.io/"> -->
+<!-- <link rel="canonical" href="https://edward-wei2535.github.io/"> -->
 <style>
 :root{
   --bg:#fcfcfb;
   --surface:#ffffff;
+  --side-bg:#f7f7f4;
   --text:#1a1a1c;
-  --body:#33333a;
-  --muted:#71717a;
-  --line:#e7e7e3;
+  --body:#3a3a40;
+  --muted:#75757c;
+  --line:#e6e6e1;
   --accent:#1a5fb4;
-  --accent-soft:#eef4fb;
-  --tag-border:#e3e3dd;
+  --accent-soft:#eaf2fb;
+  --tag-border:#e2e2db;
   --warm-bg:#fdf7e8;
-  --warm-line:#f0e2bd;
+  --warm-line:#efe1bc;
   --warm-text:#8a6d1f;
+  --dock-h:72px;
 }
 @media (prefers-color-scheme: dark){
   :root{
-    --bg:#111113;
+    --bg:#101012;
     --surface:#17171a;
+    --side-bg:#151517;
     --text:#f2f2f0;
-    --body:#c8c8ce;
-    --muted:#8f8f98;
-    --line:#2a2a2f;
+    --body:#c6c6cc;
+    --muted:#8b8b94;
+    --line:#28282d;
     --accent:#79b0f5;
-    --accent-soft:#16233a;
-    --tag-border:#33333a;
+    --accent-soft:#15233a;
+    --tag-border:#32323a;
     --warm-bg:#2a2314;
     --warm-line:#4a3d1c;
     --warm-text:#e0c274;
   }
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+html,body{height:100%}
+html{-webkit-text-size-adjust:100%}
 body{
-  margin:0;
-  background:var(--bg);
-  color:var(--body);
+  margin:0;overflow:hidden;
+  background:var(--bg);color:var(--body);
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Arial,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
-  font-size:16.5px;
-  line-height:1.72;
+  font-size:16px;line-height:1.75;
   -webkit-font-smoothing:antialiased;
 }
-.wrap{max-width:840px;margin:0 auto;padding:72px 26px 90px}
-
 a{color:var(--accent);text-decoration:none}
 a:hover{text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px}
-
-/* ---------------- Header ---------------- */
-header{display:flex;gap:44px;align-items:flex-start}
-.avatar{
-  width:158px;height:158px;flex:0 0 auto;
-  border-radius:50%;object-fit:cover;object-position:center 12%;
-  border:1px solid var(--line);
-  background:var(--accent-soft);
-}
-.intro{flex:1 1 auto;min-width:0}
-h1{
-  font-family:Georgia,"Times New Roman","Songti SC",serif;
-  font-size:36px;line-height:1.2;font-weight:600;
-  letter-spacing:-.6px;color:var(--text);
-  margin:4px 0 2px;
-}
-h1 .cn{
-  font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
-  font-size:21px;font-weight:400;color:var(--muted);
-  margin-left:8px;letter-spacing:1px;white-space:nowrap;
-}
-.role{font-size:16px;color:var(--body);margin:12px 0 2px}
-.affil{font-size:15.5px;color:var(--muted);margin:0}
-.affil a{color:var(--muted);border-bottom:1px dotted var(--muted)}
-.mail{font-size:15px;color:var(--muted);margin:10px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
-
-.icons{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
-.icons a{
-  display:inline-flex;align-items:center;gap:7px;
-  padding:5px 13px;border:1px solid var(--line);border-radius:999px;
-  font-size:14px;color:var(--body);background:var(--surface);
-  transition:border-color .15s,color .15s;
-}
-.icons a:hover{border-color:var(--accent);color:var(--accent);text-decoration:none}
-.icons svg{width:15px;height:15px;fill:currentColor}
-
-/* ---------------- Nav ---------------- */
-nav{
-  display:flex;flex-wrap:wrap;gap:4px 22px;
-  margin:44px 0 0;padding:14px 0;
-  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
-  font-size:13px;letter-spacing:1.6px;text-transform:uppercase;
-}
-nav a{color:var(--muted);font-weight:500}
-nav a:hover{color:var(--accent);text-decoration:none}
-
-/* ---------------- Sections ---------------- */
-section{scroll-margin-top:24px}
-h2{
-  font-size:13px;letter-spacing:2.4px;text-transform:uppercase;font-weight:600;
-  color:var(--muted);margin:56px 0 22px;padding-bottom:10px;
-  border-bottom:1px solid var(--line);
-}
-p{margin:0 0 14px}
 strong{color:var(--text);font-weight:600}
 
-/* ---------------- News ---------------- */
-.news{list-style:none;margin:0;padding:0}
-.news li{display:flex;gap:18px;padding:5px 0;font-size:15.8px}
-.news .d{
-  flex:0 0 88px;color:var(--muted);font-size:14px;font-weight:500;
-  font-variant-numeric:tabular-nums;padding-top:2px;
+/* ================= 布局 ================= */
+.app{display:flex;height:calc(100% - var(--dock-h))}
+
+/* ---------- 左侧固定栏 ---------- */
+.sidebar{
+  width:326px;flex:0 0 326px;height:100%;
+  background:var(--side-bg);
+  border-right:1px solid var(--line);
+  padding:46px 34px 26px;
+  display:flex;flex-direction:column;justify-content:flex-start;
+  overflow-y:auto;
+}
+.avatar{
+  width:132px;height:132px;border-radius:50%;
+  object-fit:cover;object-position:center 12%;
+  border:1px solid var(--line);background:var(--accent-soft);
+  display:block;margin-bottom:22px;
+}
+.side-name{
+  font-family:Georgia,"Times New Roman","Songti SC",serif;
+  font-size:27px;line-height:1.25;font-weight:600;letter-spacing:-.3px;
+  color:var(--text);margin:0;
+}
+.side-cn{font-size:16px;color:var(--muted);letter-spacing:1.5px;margin:2px 0 16px}
+.side-role{font-size:14.5px;color:var(--body);margin:0 0 18px;line-height:1.65}
+.side-affil{font-size:14px;color:var(--muted);margin:0 0 18px;line-height:1.6}
+.side-mail{
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:12.5px;color:var(--muted);margin:0 0 20px;word-break:break-all;
+}
+.side-links{display:flex;flex-direction:column;gap:2px;margin-bottom:26px}
+.side-links a{
+  display:flex;align-items:center;gap:9px;
+  font-size:14px;color:var(--body);padding:5px 0;
+}
+.side-links a:hover{color:var(--accent);text-decoration:none}
+.side-links svg{width:14px;height:14px;fill:currentColor;flex:0 0 auto;opacity:.75}
+
+.lang-switch{
+  position:fixed;top:22px;right:26px;z-index:60;
+  display:inline-flex;border:1px solid var(--line);border-radius:999px;
+  padding:2px;background:var(--surface);
+  box-shadow:0 3px 14px -8px rgba(0,0,0,.45);
+}
+.lang-switch button{
+  border:0;background:transparent;cursor:pointer;
+  font:inherit;font-size:12.5px;letter-spacing:.5px;
+  padding:5px 14px;border-radius:999px;color:var(--muted);
+  transition:background .15s,color .15s;min-height:26px;
+}
+.lang-switch button.active{background:var(--text);color:var(--bg)}
+
+/* ---------- 右侧内容 ---------- */
+.content{
+  flex:1;min-width:0;height:100%;overflow-y:auto;
+  padding:54px 60px 70px;
+}
+.inner{max-width:790px;margin:0 auto}
+.page{display:none}
+.page.active{display:block;animation:rise .32s cubic-bezier(.2,.7,.3,1)}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+.page-title{
+  font-family:Georgia,"Times New Roman","Songti SC",serif;
+  font-size:30px;font-weight:600;letter-spacing:-.4px;
+  color:var(--text);margin:0 0 26px;
+}
+.sec-label{
+  font-size:12px;letter-spacing:2.2px;text-transform:uppercase;
+  font-weight:600;color:var(--muted);
+  margin:44px 0 16px;padding-bottom:9px;border-bottom:1px solid var(--line);
 }
 
-/* ---------------- Education ---------------- */
-.edu{list-style:none;margin:0;padding:0}
-.edu li{
-  display:flex;justify-content:space-between;gap:20px;align-items:baseline;
-  padding:11px 0;border-bottom:1px dashed var(--line);
-}
-.edu li:last-child{border-bottom:0}
-.edu .where{font-size:16px;color:var(--text);font-weight:600}
-.edu .what{font-size:15px;color:var(--muted);margin-top:1px}
-.edu .when{font-size:14px;color:var(--muted);white-space:nowrap;font-variant-numeric:tabular-nums}
+/* ---------- 简介 ---------- */
+.lead p{font-size:17px;line-height:1.85;margin:0 0 14px;color:var(--body)}
+.lead p:last-child{margin-bottom:0}
 
-/* ---------------- Publications ---------------- */
-.pubs{list-style:none;margin:0;padding:0;counter-reset:p}
-.pubs li{
-  position:relative;padding:0 0 24px 30px;
-  counter-increment:p;
+/* ---------- 时间线 ---------- */
+.tl{list-style:none;margin:0;padding:0}
+.tl li{
+  display:flex;justify-content:space-between;gap:22px;align-items:baseline;
+  padding:9px 0;border-bottom:1px dashed var(--line);
 }
-.pubs li::before{
-  content:counter(p);
-  position:absolute;left:0;top:2px;
-  font-size:13px;color:var(--muted);
+.tl li:last-child{border-bottom:0}
+.tl-title{font-size:15.5px;font-weight:600;color:var(--text)}
+.tl-sub{font-size:14px;color:var(--muted);margin-top:1px;line-height:1.65}
+.tl-date{
+  font-size:13px;color:var(--muted);white-space:nowrap;
   font-variant-numeric:tabular-nums;
-  width:20px;
 }
-.pub-title{font-size:16.2px;color:var(--text);font-weight:600;line-height:1.55}
-.pub-authors{font-size:15px;color:var(--body);margin-top:4px}
-.pub-authors .me{font-weight:700;color:var(--text);text-decoration:underline;text-decoration-color:var(--accent);text-decoration-thickness:1.5px;text-underline-offset:2.5px}
-.pub-venue{font-size:15px;color:var(--muted);margin-top:3px}
-.pub-venue i{font-style:italic}
-.tags{margin-top:8px;display:flex;flex-wrap:wrap;gap:6px}
+
+/* ---------- 论文卡片 ---------- */
+.paper-card{
+  display:block;border:1px solid var(--line);border-radius:14px;
+  background:var(--surface);overflow:hidden;color:inherit;
+  transition:border-color .18s,box-shadow .18s,transform .18s;
+}
+.paper-card:hover{
+  text-decoration:none;border-color:var(--accent);
+  box-shadow:0 10px 34px -14px rgba(26,95,180,.36);transform:translateY(-2px);
+}
+.gallery{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line)}
+.gallery figure{
+  margin:0;background:#fff;overflow:hidden;aspect-ratio:3/2;
+  display:flex;flex-direction:column;
+}
+.gallery img{
+  display:block;width:100%;flex:1;min-height:0;object-fit:contain;
+  padding:14px 16px 6px;
+}
+.gallery figcaption{
+  font-size:11px;letter-spacing:.2px;color:#8b8b90;
+  text-align:center;padding:0 10px 11px;line-height:1.35;
+}
+.paper-card:hover .gallery img{opacity:.96}
+.paper-body{padding:20px 22px 22px}
+.kicker{
+  font-size:11px;letter-spacing:1.8px;text-transform:uppercase;
+  color:var(--accent);font-weight:600;margin-bottom:8px;
+}
+.paper-title{font-size:17px;font-weight:600;line-height:1.5;color:var(--text);margin:0 0 6px}
+.paper-meta{font-size:13.5px;color:var(--muted);margin:0 0 12px}
+.paper-abs{font-size:14.5px;color:var(--body);margin:0 0 16px;line-height:1.75}
+.paper-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.cta{display:inline-flex;align-items:center;gap:6px;font-size:13.5px;font-weight:600;color:var(--accent)}
+.cta::after{content:"→";transition:transform .18s}
+.paper-card:hover .cta::after{transform:translateX(3px)}
+
+/* ---------- 标签 ---------- */
 .tag{
-  font-size:12.5px;padding:2px 9px;border-radius:4px;
-  border:1px solid var(--tag-border);color:var(--muted);
-  white-space:nowrap;letter-spacing:.2px;
+  font-size:12px;padding:2px 9px;border-radius:4px;
+  border:1px solid var(--tag-border);color:var(--muted);white-space:nowrap;
 }
 .tag.hi{background:var(--warm-bg);border-color:var(--warm-line);color:var(--warm-text)}
 .tag.accent{background:var(--accent-soft);border-color:transparent;color:var(--accent)}
-.pub-meta{font-size:14.5px;color:var(--muted);margin:-6px 0 24px}
-h3.sub{font-size:15px;font-weight:600;color:var(--text);margin:34px 0 14px}
 
-/* ---------------- Experience ---------------- */
-.exp{list-style:none;margin:0;padding:0}
-.exp li{padding-bottom:26px}
-.exp li:last-child{padding-bottom:0}
-.exp-head{display:flex;justify-content:space-between;gap:20px;align-items:baseline}
-.exp .org{font-size:16px;font-weight:600;color:var(--text)}
-.exp .when{font-size:14px;color:var(--muted);white-space:nowrap;font-variant-numeric:tabular-nums}
-.exp .pos{font-size:15px;color:var(--muted);margin-top:1px}
-.exp ul{margin:9px 0 0;padding-left:20px;font-size:15.5px}
-.exp ul li{padding:0 0 5px}
-.exp ul li::marker{color:var(--muted)}
+/* ---------- 论文列表 ---------- */
+.pub-meta{font-size:13.5px;color:var(--muted);margin:-10px 0 24px}
+.pubs{list-style:none;margin:0;padding:0;counter-reset:p}
+.pubs li{position:relative;padding:0 0 22px 28px;counter-increment:p}
+.pubs li::before{
+  content:counter(p);position:absolute;left:0;top:2px;
+  font-size:12.5px;color:var(--muted);width:18px;
+  font-variant-numeric:tabular-nums;
+}
+.pub-title{font-size:15.5px;color:var(--text);font-weight:600;line-height:1.55}
+.pub-authors{font-size:14px;color:var(--body);margin-top:3px;line-height:1.6}
+.pub-authors .me{
+  font-weight:700;color:var(--text);
+  text-decoration:underline;text-decoration-color:var(--accent);
+  text-decoration-thickness:1.5px;text-underline-offset:2.5px;
+}
+.pub-venue{font-size:13.5px;color:var(--muted);margin-top:3px}
+.pub-venue i{font-style:italic}
+.tags{margin-top:7px;display:flex;flex-wrap:wrap;gap:6px}
+h3.sub{font-size:14px;font-weight:600;color:var(--text);margin:30px 0 12px}
 
-/* ---------------- Skills ---------------- */
-.skills{display:grid;grid-template-columns:120px 1fr;gap:6px 20px;font-size:15.5px}
-.skills dt{color:var(--muted);font-size:14px;padding-top:3px}
+/* ---------- 研究 / 技能 ---------- */
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{
+  font-size:13.5px;padding:5px 13px;border-radius:999px;
+  border:1px solid var(--line);background:var(--surface);color:var(--body);
+}
+.skills{display:grid;grid-template-columns:110px 1fr;gap:4px 18px;font-size:14.5px;margin:0}
+.skills dt{color:var(--muted);font-size:13px;padding-top:3px}
 .skills dd{margin:0;color:var(--body)}
 
-/* ---------------- Honors ---------------- */
-.honors{list-style:none;margin:0;padding:0;font-size:15.5px}
-.honors li{display:flex;gap:14px;padding:4px 0}
-.honors .y{flex:0 0 78px;color:var(--muted);font-size:14px;font-variant-numeric:tabular-nums}
-
-/* ---------------- Footer ---------------- */
-footer{
-  margin-top:84px;padding-top:22px;border-top:1px solid var(--line);
-  font-size:13.5px;color:var(--muted);
-  display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
+/* ---------- 荣誉 ---------- */
+.honors{list-style:none;margin:0;padding:0;font-size:14.5px}
+.honors li{display:flex;gap:14px;padding:6px 0}
+.honors .y{
+  flex:0 0 88px;color:var(--muted);font-size:13px;
+  font-variant-numeric:tabular-nums;padding-top:1px;
 }
 
-/* ---------------- Mobile ---------------- */
-@media (max-width:660px){
-  .wrap{padding:44px 20px 60px}
-  header{flex-direction:column;gap:24px}
-  .avatar{width:112px;height:112px}
-  h1{font-size:28px}
-  h1 .cn{font-size:17px;display:block;margin:2px 0 0}
-  nav{gap:4px 16px;font-size:12px;letter-spacing:1.2px;margin-top:32px}
-  h2{margin-top:44px}
-  .edu li,.exp-head{flex-direction:column;gap:2px}
-  .edu .when,.exp .when{font-size:13.5px}
-  .news li{flex-direction:column;gap:0}
-  .news .d{flex:none;padding-top:0}
-  .skills{grid-template-columns:1fr;gap:2px 0}
+/* ---------- 底部导航 ---------- */
+.dock{
+  position:fixed;left:0;right:0;bottom:0;height:var(--dock-h);
+  display:flex;align-items:center;justify-content:center;gap:6px;
+  background:var(--surface);
+  border-top:1px solid var(--line);
+  z-index:50;
+}
+@supports (backdrop-filter: blur(4px)) or (-webkit-backdrop-filter: blur(4px)){
+  .dock{
+    background:rgba(255,255,255,.82);
+    backdrop-filter:saturate(180%) blur(14px);
+    -webkit-backdrop-filter:saturate(180%) blur(14px);
+  }
+  @media (prefers-color-scheme: dark){
+    .dock{background:rgba(23,23,26,.82)}
+  }
+}
+.dock button{
+  display:flex;align-items:center;gap:8px;
+  border:0;background:transparent;cursor:pointer;font:inherit;
+  font-size:13.5px;color:var(--muted);
+  padding:9px 16px;border-radius:10px;
+  transition:background .16s,color .16s;white-space:nowrap;
+}
+.dock button svg{width:16px;height:16px;fill:currentColor;opacity:.85}
+.dock button:hover{background:var(--accent-soft);color:var(--accent)}
+.dock button.active{background:var(--accent-soft);color:var(--accent);font-weight:600}
+
+/* ---------- 移动端 ---------- */
+@media (max-width:900px){
+  html,body{height:auto;overflow:auto}
+  .app{display:block;height:auto}
+  .sidebar{
+    width:auto;height:auto;flex:none;overflow:visible;
+    border-right:0;border-bottom:1px solid var(--line);
+    padding:18px 106px 18px 18px;flex-direction:row;align-items:center;gap:14px;
+    position:sticky;top:0;z-index:40;background:var(--side-bg);
+  }
+  .lang-switch{top:16px;right:14px}
+  .lang-switch button{padding:4px 11px;font-size:12px}
+  .side-head{display:flex;align-items:center;gap:14px;flex:1;min-width:0}
+  .avatar{width:58px;height:58px;margin:0;flex:0 0 auto}
+  .side-meta{flex:1;min-width:0}
+  .side-name{font-size:18px}
+  .side-cn{font-size:12.5px;margin:0 0 3px}
+  .side-role,.side-affil,.side-mail,.side-links{display:none}
+  .content{height:auto;overflow:visible;padding:26px 20px 96px}
+  .page-title{font-size:23px;margin-bottom:18px}
+  .lead p{font-size:15.5px}
+  .gallery figure{aspect-ratio:4/3}
+  .gallery img{padding:8px 8px 3px}
+  .gallery figcaption{font-size:10px;padding:0 6px 7px}
+  .paper-body{padding:16px 16px 18px}
+  .paper-title{font-size:15px}
+  .paper-abs{font-size:13.5px}
+  .tl li{flex-direction:column;gap:1px}
+  .dock{gap:0;padding:0 4px}
+  .dock button{
+    flex:1;justify-content:center;padding:8px 4px;font-size:11px;
+    gap:4px;flex-direction:column;border-radius:8px;
+  }
+  .dock button svg{width:18px;height:18px}
+  .skills{grid-template-columns:1fr}
   .skills dt{padding-top:10px;color:var(--text);font-weight:600}
-  footer{flex-direction:column;gap:4px}
+  .honors li{flex-direction:column;gap:0}
 }
 </style>
 </head>
 <body>
-<div class="wrap">
 
-  <!-- ==================== HEADER ==================== -->
-  <header>
-    <!-- 换成你的照片：把照片命名为 photo.jpg 放进 assets/ 目录，然后把下一行的 src 改成 assets/photo.jpg -->
-    <img class="avatar" src="assets/photo.jpg" alt="Zhanchen Wei">
+<div class="app">
 
-    <div class="intro">
-      <h1>Zhanchen Wei<span class="cn">魏湛郴</span></h1>
-
-      <p class="role">M.S. in Agricultural Engineering and Information Technology, 2026</p>
-      <p class="affil">College of Information Technology, Jilin Agricultural University</p>
-      <p class="mail">weizhanchen [at] 126.com</p>
-
-      <div class="icons">
-        <a href="mailto:weizhanchen@126.com">
-          <svg viewBox="0 0 24 24"><path d="M2 5.5A2.5 2.5 0 0 1 4.5 3h15A2.5 2.5 0 0 1 22 5.5v13a2.5 2.5 0 0 1-2.5 2.5h-15A2.5 2.5 0 0 1 2 18.5v-13Zm2.2.3 7.8 6.2 7.8-6.2H4.2Z"/></svg>
-          Email
-        </a>
-        <a href="assets/cv.pdf" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6Zm-1 7V3.5L18.5 9H13ZM8 13h8v1.6H8V13Zm0 3.2h8v1.6H8v-1.6Z"/></svg>
-          CV
-        </a>
-        <a href="https://github.com/Edward-wei2535" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 8.8 21.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.5-1.1-1.1-1.4-1.1-1.4-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.4 1.1 3 .8.1-.6.4-1.1.6-1.3-2.2-.3-4.5-1.1-4.5-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.6 0 0 .8-.3 2.7 1a9.4 9.4 0 0 1 5 0c1.9-1.3 2.7-1 2.7-1 .5 1.3.2 2.3.1 2.6.6.7 1 1.6 1 2.7 0 3.9-2.3 4.7-4.5 5 .4.3.7 1 .7 2v2.9c0 .3.2.6.7.5A10 10 0 0 0 12 2Z"/></svg>
-          GitHub
-        </a>
-        <a href="https://scholar.google.com/citations?user=B7e2_BsAAAAJ&hl=en" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24"><path d="M12 2 1 21h22L12 2Zm0 5.3 7.4 12.6H4.6L12 7.3Z"/></svg>
-          Google Scholar
-        </a>
+  <!-- ================= 左侧固定栏 ================= -->
+  <aside class="sidebar">
+    <div class="side-head">
+      <img class="avatar" src="assets/photo.jpg" alt="Zhanchen Wei">
+      <div class="side-meta">
+        <h1 class="side-name">Zhanchen Wei</h1>
+        <p class="side-cn">魏湛郴</p>
+        <p class="side-role" data-zh="农业工程与信息技术 硕士研究生" data-en="M.S. Student in Agricultural Engineering and Information Technology">农业工程与信息技术 硕士研究生</p>
+        <p class="side-mail">weizhanchen@126.com</p>
+        <div class="side-links">
+          <a href="mailto:weizhanchen@126.com">
+            <svg viewBox="0 0 24 24"><path d="M2 5.5A2.5 2.5 0 0 1 4.5 3h15A2.5 2.5 0 0 1 22 5.5v13a2.5 2.5 0 0 1-2.5 2.5h-15A2.5 2.5 0 0 1 2 18.5v-13Zm2.2.3 7.8 6.2 7.8-6.2H4.2Z"/></svg>
+            Email
+          </a>
+          <a href="assets/cv.pdf" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6Zm-1 7V3.5L18.5 9H13ZM8 13h8v1.6H8V13Zm0 3.2h8v1.6H8v-1.6Z"/></svg>
+            <span data-zh="简历 PDF" data-en="CV (PDF)">简历 PDF</span>
+          </a>
+          <a href="https://scholar.google.com/citations?user=B7e2_BsAAAAJ&hl=en" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24"><path d="M12 2 1 21h22L12 2Zm0 5.3 7.4 12.6H4.6L12 7.3Z"/></svg>
+            Google Scholar
+          </a>
+          <a href="https://github.com/Edward-wei2535" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 8.8 21.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.5-1.1-1.1-1.4-1.1-1.4-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.4 1.1 3 .8.1-.6.4-1.1.6-1.3-2.2-.3-4.5-1.1-4.5-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.6 0 0 .8-.3 2.7 1a9.4 9.4 0 0 1 5 0c1.9-1.3 2.7-1 2.7-1 .5 1.3.2 2.3.1 2.6.6.7 1 1.6 1 2.7 0 3.9-2.3 4.7-4.5 5 .4.3.7 1 .7 2v2.9c0 .3.2.6.7.5A10 10 0 0 0 12 2Z"/></svg>
+            GitHub
+          </a>
+        </div>
       </div>
     </div>
-  </header>
+  </aside>
 
-  <!-- ==================== NAV ==================== -->
-  <nav>
-    <a href="#about">About</a>
-    <a href="#news">News</a>
-    <a href="#education">Education</a>
-    <a href="#research">Research</a>
-    <a href="#publications">Publications</a>
-    <a href="#experience">Experience</a>
-    <a href="#honors">Honors</a>
-  </nav>
+  <!-- ================= 右侧内容 ================= -->
+  <main class="content" id="content">
+    <div class="inner">
 
-  <!-- ==================== ABOUT ==================== -->
-  <section id="about">
-    <h2>About Me</h2>
-    <p>
-      I work on <strong>lightweight object detection for agricultural vision</strong> — recognising and grading
-      mushrooms, apples, blueberries, cherry tomatoes and ginseng in real field conditions, where variable light,
-      occlusion and densely packed small objects break off-the-shelf detectors.
-    </p>
-    <p>
-      I received my M.S. from Jilin Agricultural University in 2026 and have published eight SCI papers, including
-      first-author work in <i>Ecological Informatics</i>. I am currently applying for Ph.D. programmes.
-    </p>
-  </section>
+      <!-- ---------- 主页 ---------- -->
+      <section class="page active" id="page-home">
+        <h2 class="page-title" data-zh="主页" data-en="Home">主页</h2>
 
-  <!-- ==================== NEWS ==================== -->
-  <section id="news">
-    <h2>News</h2>
-    <ul class="news">
-      <li><span class="d">Oct 2026</span><span>Personal homepage is online.</span></li>
-      <li><span class="d">Jul 2026</span><span>Graduated from Jilin Agricultural University with an M.S. in Agricultural Engineering and Information Technology.</span></li>
-      <li><span class="d">Jan 2026</span><span>Paper on <i>Lentinula edodes</i> maturity detection published in <i>Horticulturae</i>.</span></li>
-      <li><span class="d">Jun 2025</span><span>First-author paper accepted by <i>Ecological Informatics</i> (SCI Q1 Top, IF 7.3).</span></li>
-    </ul>
-  </section>
+        <div class="lead">
+          <p data-html data-zh="我是做人工智能应用落地的科研工程师。核心在两块：<strong>轻量化视觉感知</strong>——把检测模型压到边缘设备真能跑的体量，精度还不能掉；以及<strong>大模型应用</strong>——把 LLM、RAG 和 Agent 接进真实业务流程。" data-en="I am a research engineer building applied AI systems. My work sits in two places: <strong>lightweight visual perception</strong> — compressing detection models down to what an edge device can actually run, without giving up accuracy — and <strong>LLM applications</strong>, wiring retrieval, tool calling and agents into real production workflows.">我是做人工智能应用落地的科研工程师。核心在两块：<strong>轻量化视觉感知</strong>——把检测模型压到边缘设备真能跑的体量，精度还不能掉；以及<strong>大模型应用</strong>——把 LLM、RAG 和 Agent 接进真实业务流程。</p>
+          <p data-html data-zh="近三年发表 SCI 论文 8 篇，其中第一作者 1 篇（<i>Ecological Informatics</i>，IF 7.3）。2026 年硕士毕业，目前在申请博士。" data-en="I have published eight SCI papers over the past three years, including first-author work in <i>Ecological Informatics</i> (IF 7.3). I completed my M.S. in 2026 and am now applying for Ph.D. programmes.">近三年发表 SCI 论文 8 篇，其中第一作者 1 篇（<i>Ecological Informatics</i>，IF 7.3）。2026 年硕士毕业，目前在申请博士。</p>
+        </div>
 
-  <!-- ==================== EDUCATION ==================== -->
-  <section id="education">
-    <h2>Education</h2>
-    <ul class="edu">
-      <li>
-        <div>
-          <div class="where">Jilin Agricultural University</div>
-          <div class="what">M.S. in Agricultural Engineering and Information Technology · College of Information Technology</div>
-        </div>
-        <div class="when">Sep 2023 – Jul 2026</div>
-      </li>
-      <li>
-        <div>
-          <div class="where">Mie University, Japan</div>
-          <div class="what">Exchange M.S. Student · Graduate School of Engineering, Computer Science</div>
-        </div>
-        <div class="when">Apr 2025 – Aug 2025</div>
-      </li>
-      <li>
-        <div>
-          <div class="where">Nankai University</div>
-          <div class="what">B.S. in Computer Science and Technology · School of Modern Distance Education</div>
-        </div>
-        <div class="when">Mar 2021 – Jul 2023</div>
-      </li>
-    </ul>
-  </section>
-
-  <!-- ==================== RESEARCH ==================== -->
-  <section id="research">
-    <h2>Research Interests</h2>
-    <p>
-      <strong>Lightweight object detection</strong> · <strong>Small-object and dense-object detection</strong> ·
-      <strong>Knowledge distillation and model compression</strong> · <strong>Vision for smart agriculture</strong> ·
-      <strong>LLM agents and RAG</strong>
-    </p>
-  </section>
-
-  <!-- ==================== PUBLICATIONS ==================== -->
-  <section id="publications">
-    <h2>Publications</h2>
-    <p class="pub-meta">
-      8 SCI papers · 84 citations, h-index 6 &nbsp;·&nbsp;
-      <a href="https://scholar.google.com/citations?user=B7e2_BsAAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar</a>
-      &nbsp;·&nbsp; <b>Zhanchen Wei</b> is underlined.
-    </p>
-    <ol class="pubs">
-      <li>
-        <div class="pub-title">
-          <a href="https://doi.org/10.3390/horticulturae12010076" target="_blank" rel="noopener">Attention–Diffusion–Fusion Paradigm for Fine-Grained Lentinula edodes Maturity Detection</a>
-        </div>
-        <div class="pub-authors">Xingmei Xu, Jiali Wang, <span class="me">Zhanchen Wei</span>, Shujuan Wei, Jinying Li</div>
-        <div class="pub-venue"><i>Horticulturae</i>, 2026, 12(1): 76</div>
-        <div class="tags"><span class="tag">SCI</span></div>
-      </li>
-      <li>
-        <div class="pub-title">
-          <a href="https://doi.org/10.1016/j.aej.2025.08.013" target="_blank" rel="noopener">VBP-YOLO-prune: Robust Apple Detection under Variable Weather via Feature-Adaptive Fusion and Efficient YOLO Pruning</a>
-        </div>
-        <div class="pub-authors">Haohai You, Hao Wang, <span class="me">Zhanchen Wei</span>, Chunguang Bi, Lijuan Zhang, Xuefang Li, Yingying Yin</div>
-        <div class="pub-venue"><i>Alexandria Engineering Journal</i>, 2025, 128: 992–1014</div>
-        <div class="tags"><span class="tag">SCI</span></div>
-      </li>
-      <li>
-        <div class="pub-title">
-          <a href="https://doi.org/10.3390/horticulturae11070744" target="_blank" rel="noopener">OMB-YOLO-tiny: A Lightweight Detection Model for Damaged Pleurotus ostreatus Based on Enhanced YOLOv8n</a>
-        </div>
-        <div class="pub-authors">Lei Shi, Zhuo Bai, Xiangmeng Yin, <span class="me">Zhanchen Wei</span>, Haohai You, Shilin Liu, Fude Wang, Xuexi Qi, Helong Yu, Chunguang Bi, Ruiqing Ji</div>
-        <div class="pub-venue"><i>Horticulturae</i>, 2025, 11(7): 744</div>
-        <div class="tags"><span class="tag">SCI</span></div>
-      </li>
-      <li>
-        <div class="pub-title">
-          <a href="https://doi.org/10.1016/j.ecoinf.2025.103256" target="_blank" rel="noopener">A Lightweight Context-Aware Framework for Toxic Mushroom Detection in Complex Ecological Environments</a>
-        </div>
-        <div class="pub-authors"><span class="me">Zhanchen Wei</span>, Jiali Wang, Haohai You, Ruiqing Ji, Fude Wang, Lei Shi, Helong Yu</div>
-        <div class="pub-venue"><i>Ecological Informatics</i>, 2025, 90: 103256</div>
-        <div class="tags">
-          <span class="tag hi">SCI Q1 Top · IF 7.3</span>
-          <span class="tag accent">First Author</span>
-        </div>
-      </li>
-      <li>
-        <div class="pub-title">
-          <a href="https://doi.org/10.3390/horticulturae11060600" target="_blank" rel="noopener">A Blueberry Maturity Detection Method Integrating Attention-Driven Multi-Scale Feature Interaction and Dynamic Upsampling</a>
-        </div>
-        <div class="pub-authors">Haohai You, Zhiyi Li, <span class="me">Zhanchen Wei</span>, Lijuan Zhang, Xinhua Bi, Chunguang Bi, Xuefang Li, Yunpeng Duan</div>
-        <div class="pub-venue"><i>Horticulturae</i>, 2025, 11(6): 600</div>
-        <div class="tags"><span class="tag">SCI</span></div>
-      </li>
-      <li>
-        <div class="pub-title">
-          <a href="https://doi.org/10.3390/agronomy15051088" target="_blank" rel="noopener">ASE-YOLOv8n: A Method for Cherry Tomato Ripening Detection</a>
-        </div>
-        <div class="pub-authors">Xuemei Liang, Haojie Jia, Hao Wang, Lijuan Zhang, Dongming Li, <span class="me">Zhanchen Wei</span>, Haohai You, Xiaoru Wan, Ruixin Li, Wei Li, Minglai Yang</div>
-        <div class="pub-venue"><i>Agronomy</i>, 2025, 15(5): 1088</div>
-        <div class="tags"><span class="tag">SCI</span></div>
-      </li>
-      <li>
-        <div class="pub-title">
-          <a href="https://doi.org/10.3390/agriculture14081353" target="_blank" rel="noopener">DGS-YOLOv8: A Method for Ginseng Appearance Quality Detection</a>
-        </div>
-        <div class="pub-authors">Lijuan Zhang, Haohai You, <span class="me">Zhanchen Wei</span>, Zhiyi Li, Haojie Jia, Shengpeng Yu, Chunxi Zhao, Yan Lv, Dongming Li</div>
-        <div class="pub-venue"><i>Agriculture</i>, 2024, 14(8): 1353</div>
-        <div class="tags"><span class="tag">SCI</span></div>
-      </li>
-      <li>
-        <div class="pub-title">
-          <a href="https://doi.org/10.3390/horticulturae10070742" target="_blank" rel="noopener">OMC-YOLO: A Lightweight Grading Detection Method for Oyster Mushrooms</a>
-        </div>
-        <div class="pub-authors">Lei Shi, <span class="me">Zhanchen Wei</span>, Haohai You, Jiali Wang, Zhuo Bai, Helong Yu, Ruiqing Ji, Chunguang Bi</div>
-        <div class="pub-venue"><i>Horticulturae</i>, 2024, 10(7): 742</div>
-        <div class="tags">
-          <span class="tag hi">SCI Q2 · IF 3.1</span>
-          <span class="tag accent">Second Author</span>
-        </div>
-      </li>
-    </ol>
-
-    <h3 class="sub">Under Review</h3>
-    <ol class="pubs">
-      <li>
-        <div class="pub-title">A Knowledge-Distilled Lightweight Detection Framework for Edible Mushroom Recognition in Complex Environments</div>
-        <div class="pub-authors"><span class="me">Zhanchen Wei</span>, et al.</div>
-        <div class="pub-venue"><i>Engineering Applications of Artificial Intelligence</i> — under review</div>
-        <div class="tags"><span class="tag accent">First Author</span></div>
-      </li>
-    </ol>
-
-    <h3 class="sub">Patent</h3>
-    <ol class="pubs">
-      <li>
-        <div class="pub-title">A Lightweight Improved Algorithm for Multi-Species Edible Mushroom Detection in Complex Environments</div>
-        <div class="pub-authors"><span class="me">Zhanchen Wei</span>, et al.</div>
-        <div class="pub-venue">National Invention Patent, published</div>
-      </li>
-    </ol>
-  </section>
-
-  <!-- ==================== EXPERIENCE ==================== -->
-  <section id="experience">
-    <h2>Experience</h2>
-    <ul class="exp">
-      <li>
-        <div class="exp-head">
-          <div class="org">PICC Property and Casualty Co., Ltd. — Changzhi Branch</div>
-          <div class="when">Jul 2026 – Present</div>
-        </div>
-        <div class="pos">IT Support</div>
-        <ul>
-          <li>Business data statistics, analysis and digitalisation management; process optimisation.</li>
-          <li>Data processing and automated reporting with Python and Excel.</li>
-          <li>Applied LLM and agent techniques to automatic policy issuance, underwriting and customer Q&amp;A scenarios.</li>
+        <h3 class="sec-label" data-zh="教育经历" data-en="Education">教育经历</h3>
+        <ul class="tl">
+          <li>
+            <div>
+              <div class="tl-title" data-zh="吉林农业大学（中国）" data-en="Jilin Agricultural University, China">吉林农业大学（中国）</div>
+              <div class="tl-sub" data-zh="农业工程与信息技术 硕士 · 信息技术学院" data-en="M.S. in Agricultural Engineering and Information Technology · College of Information Technology">农业工程与信息技术 硕士 · 信息技术学院</div>
+            </div>
+            <div class="tl-date">2023.09 – 2026.07</div>
+          </li>
+          <li>
+            <div>
+              <div class="tl-title" data-zh="三重大学（日本）" data-en="Mie University, Japan">三重大学（日本）</div>
+              <div class="tl-sub" data-zh="交换硕士 · 工学研究科 计算机工学" data-en="Exchange M.S. Student · Graduate School of Engineering, Computer Science">交换硕士 · 工学研究科 计算机工学</div>
+            </div>
+            <div class="tl-date">2025.04 – 2025.08</div>
+          </li>
+          <li>
+            <div>
+              <div class="tl-title" data-zh="南开大学（中国）" data-en="Nankai University, China">南开大学（中国）</div>
+              <div class="tl-sub" data-zh="计算机科学与技术 学士 · 现代远程教育学院" data-en="B.S. in Computer Science and Technology · School of Modern Distance Education">计算机科学与技术 学士 · 现代远程教育学院</div>
+            </div>
+            <div class="tl-date">2021.03 – 2023.07</div>
+          </li>
         </ul>
-      </li>
-      <li>
-        <div class="exp-head">
-          <div class="org">Guangzhou Honghu Technology Co., Ltd.</div>
-          <div class="when">Apr 2024 – Aug 2024</div>
-        </div>
-        <div class="pos">AI Application Development Intern</div>
-        <ul>
-          <li>Backend development for an online cybersecurity education platform with Java, Spring Boot and MyBatis-Plus.</li>
-          <li>Cache management and asynchronous messaging with Redis and RabbitMQ; system testing and bug fixing.</li>
-          <li>Built LangChain-based agent features — prompt engineering, RAG and tool calling — for course Q&amp;A and question explanation.</li>
+
+        <h3 class="sec-label" data-zh="工作经历" data-en="Experience">工作经历</h3>
+        <ul class="tl">
+          <li>
+            <div>
+              <div class="tl-title" data-zh="中国人民财产保险 · 长治市分公司" data-en="PICC Property and Casualty Co., Ltd. · Changzhi Branch">中国人民财产保险 · 长治市分公司</div>
+              <div class="tl-sub" data-zh="信息技术支持 — 业务数据分析与自动化报表，以及 LLM / Agent 在出单核保、智能问答中的应用" data-en="IT Support — business data analysis, automated reporting, and LLM / agent applications in policy issuance, underwriting and customer Q&amp;A">信息技术支持 — 业务数据分析与自动化报表，以及 LLM / Agent 在出单核保、智能问答中的应用</div>
+            </div>
+            <div class="tl-date">2026.07 – <span data-zh="至今" data-en="Present">至今</span></div>
+          </li>
+          <li>
+            <div>
+              <div class="tl-title" data-zh="广州鸿鹄科技" data-en="Guangzhou Honghu Technology">广州鸿鹄科技</div>
+              <div class="tl-sub" data-zh="AI 应用开发实习 — Spring Boot 后端，以及基于 LangChain 的 RAG / Tool Calling 智能问答" data-en="AI Application Development Intern — Spring Boot backend, plus LangChain-based RAG and tool-calling Q&amp;A">AI 应用开发实习 — Spring Boot 后端，以及基于 LangChain 的 RAG / Tool Calling 智能问答</div>
+            </div>
+            <div class="tl-date">2024.04 – 2024.08</div>
+          </li>
+          <li>
+            <div>
+              <div class="tl-title" data-zh="吉林省科技厅科技发展项目" data-en="Jilin Provincial S&amp;T Development Project">吉林省科技厅科技发展项目</div>
+              <div class="tl-sub" data-zh="研究成员 — 复杂场景智能检测：识别算法、轻量化设计与自动化分级" data-en="Research Member — intelligent detection in complex scenes: recognition algorithms, lightweight design and automated grading">研究成员 — 复杂场景智能检测：识别算法、轻量化设计与自动化分级</div>
+            </div>
+            <div class="tl-date">2023.09 – 2025.04</div>
+          </li>
         </ul>
-      </li>
-      <li>
-        <div class="exp-head">
-          <div class="org">Science and Technology Development Project, Jilin Provincial Department of Science and Technology</div>
-          <div class="when">Sep 2023 – Apr 2025</div>
+
+        <h3 class="sec-label" data-zh="代表论文" data-en="Featured Paper">代表论文</h3>
+        <a class="paper-card" href="https://doi.org/10.1016/j.ecoinf.2025.103256" target="_blank" rel="noopener">
+          <div class="gallery">
+            <figure>
+              <img src="assets/paper/gr4.jpg" alt="PM-YOLO overall framework" loading="lazy">
+              <figcaption data-zh="PM-YOLO 整体框架" data-en="Overall framework">PM-YOLO 整体框架</figcaption>
+            </figure>
+            <figure>
+              <img src="assets/paper/gr7.jpg" alt="CSFCN and CAA modules" loading="lazy">
+              <figcaption data-zh="CSFCN 模块与 CAA 注意力" data-en="CSFCN and CAA modules">CSFCN 模块与 CAA 注意力</figcaption>
+            </figure>
+            <figure>
+              <img src="assets/paper/gr18.jpg" alt="Radar chart comparing attention modules" loading="lazy">
+              <figcaption data-zh="注意力模块性能雷达图" data-en="Radar: attention modules">注意力模块性能雷达图</figcaption>
+            </figure>
+            <figure>
+              <img src="assets/paper/gr14.jpg" alt="Grad-CAM attention comparison" loading="lazy">
+              <figcaption data-zh="Grad-CAM 注意力对比" data-en="Grad-CAM comparison">Grad-CAM 注意力对比</figcaption>
+            </figure>
+          </div>
+          <div class="paper-body">
+            <div class="kicker" data-zh="一作 · SCI Q1 Top" data-en="First Author · SCI Q1 Top">一作 · SCI Q1 Top</div>
+            <h4 class="paper-title">A Lightweight Context-Aware Framework for Toxic Mushroom Detection in Complex Ecological Environments</h4>
+            <p class="paper-meta"><i>Ecological Informatics</i>, 2025, 90: 103256 &nbsp;·&nbsp; IF 7.3</p>
+            <p class="paper-abs" data-zh="误食毒蘑菇是林区主要的食品安全风险之一，但野外场景很难做：同属物种形态相似、边缘设备算力有限、天气与地形变化又会拖垮模型。我们提出 PM-YOLO——用上下文与空间特征校准网络（CSFCN）和上下文锚点注意力（CAA）做多尺度特征对齐与自适应加权，再配合知识蒸馏压缩模型。在自建的 12,039 张毒菌数据集上，mAP@0.5 达 92.64%，比 YOLOv8s 高 2.06 个百分点，参数量只有它的 31.25%（3.5M vs 11.2M），十折交叉验证的性能波动小于 2%。" data-en="Eating a misidentified mushroom is a leading food-safety risk in forest regions, yet field conditions defeat general detectors: sibling species look alike, edge devices are weak, and weather and terrain shift the input distribution. We propose PM-YOLO, pairing a Contextual and Spatial Feature Calibration Network (CSFCN) with Contextual Anchor Attention (CAA) for multi-scale alignment and adaptive weighting, then compressing the model with knowledge distillation. On a 12,039-image toxic-mushroom dataset it reaches 92.64% mAP@0.5 — 2.06 points above YOLOv8s — with only 31.25% of the parameters (3.5M vs 11.2M), and holds within 2% across ten-fold cross-validation.">误食毒蘑菇是林区主要的食品安全风险之一，但野外场景很难做：同属物种形态相似、边缘设备算力有限、天气与地形变化又会拖垮模型。我们提出 PM-YOLO——用上下文与空间特征校准网络（CSFCN）和上下文锚点注意力（CAA）做多尺度特征对齐与自适应加权，再配合知识蒸馏压缩模型。在自建的 12,039 张毒菌数据集上，mAP@0.5 达 92.64%，比 YOLOv8s 高 2.06 个百分点，参数量只有它的 31.25%（3.5M vs 11.2M），十折交叉验证的性能波动小于 2%。</p>
+            <div class="paper-tags">
+              <span class="tag hi">SCI Q1 Top · IF 7.3</span>
+              <span class="tag accent" data-zh="第一作者" data-en="First Author">第一作者</span>
+              <span class="tag" data-zh="开放获取" data-en="Open Access">开放获取</span>
+            </div>
+            <span class="cta" data-zh="前往期刊官方页面阅读全文" data-en="Read on ScienceDirect">前往期刊官方页面阅读全文</span>
+          </div>
+        </a>
+      </section>
+
+      <!-- ---------- 论文 ---------- -->
+      <section class="page" id="page-publications">
+        <h2 class="page-title" data-zh="论文" data-en="Publications">论文</h2>
+        <p class="pub-meta">
+          <span data-zh="8 篇 SCI · 84 次引用 · h-index 6" data-en="8 SCI papers · 84 citations · h-index 6">8 篇 SCI · 84 次引用 · h-index 6</span>
+          &nbsp;·&nbsp;
+          <a href="https://scholar.google.com/citations?user=B7e2_BsAAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar</a>
+        </p>
+
+        <ol class="pubs">
+          <li>
+            <div class="pub-title"><a href="https://doi.org/10.3390/horticulturae12010076" target="_blank" rel="noopener">Attention–Diffusion–Fusion Paradigm for Fine-Grained Lentinula edodes Maturity Detection</a></div>
+            <div class="pub-authors">Xingmei Xu, Jiali Wang, <span class="me">Zhanchen Wei</span>, Shujuan Wei, Jinying Li</div>
+            <div class="pub-venue"><i>Horticulturae</i>, 2026, 12(1): 76</div>
+            <div class="tags"><span class="tag">SCI</span></div>
+          </li>
+          <li>
+            <div class="pub-title"><a href="https://doi.org/10.1016/j.aej.2025.08.013" target="_blank" rel="noopener">VBP-YOLO-prune: Robust Apple Detection under Variable Weather via Feature-Adaptive Fusion and Efficient YOLO Pruning</a></div>
+            <div class="pub-authors">Haohai You, Hao Wang, <span class="me">Zhanchen Wei</span>, Chunguang Bi, Lijuan Zhang, Xuefang Li, Yingying Yin</div>
+            <div class="pub-venue"><i>Alexandria Engineering Journal</i>, 2025, 128: 992–1014</div>
+            <div class="tags"><span class="tag">SCI</span></div>
+          </li>
+          <li>
+            <div class="pub-title"><a href="https://doi.org/10.3390/horticulturae11070744" target="_blank" rel="noopener">OMB-YOLO-tiny: A Lightweight Detection Model for Damaged Pleurotus ostreatus Based on Enhanced YOLOv8n</a></div>
+            <div class="pub-authors">Lei Shi, Zhuo Bai, Xiangmeng Yin, <span class="me">Zhanchen Wei</span>, Haohai You, Shilin Liu, Fude Wang, Xuexi Qi, Helong Yu, Chunguang Bi, Ruiqing Ji</div>
+            <div class="pub-venue"><i>Horticulturae</i>, 2025, 11(7): 744</div>
+            <div class="tags"><span class="tag">SCI</span></div>
+          </li>
+          <li>
+            <div class="pub-title"><a href="https://doi.org/10.1016/j.ecoinf.2025.103256" target="_blank" rel="noopener">A Lightweight Context-Aware Framework for Toxic Mushroom Detection in Complex Ecological Environments</a></div>
+            <div class="pub-authors"><span class="me">Zhanchen Wei</span>, Jiali Wang, Haohai You, Ruiqing Ji, Fude Wang, Lei Shi, Helong Yu</div>
+            <div class="pub-venue"><i>Ecological Informatics</i>, 2025, 90: 103256</div>
+            <div class="tags">
+              <span class="tag hi">SCI Q1 Top · IF 7.3</span>
+              <span class="tag accent" data-zh="第一作者" data-en="First Author">第一作者</span>
+            </div>
+          </li>
+          <li>
+            <div class="pub-title"><a href="https://doi.org/10.3390/horticulturae11060600" target="_blank" rel="noopener">A Blueberry Maturity Detection Method Integrating Attention-Driven Multi-Scale Feature Interaction and Dynamic Upsampling</a></div>
+            <div class="pub-authors">Haohai You, Zhiyi Li, <span class="me">Zhanchen Wei</span>, Lijuan Zhang, Xinhua Bi, Chunguang Bi, Xuefang Li, Yunpeng Duan</div>
+            <div class="pub-venue"><i>Horticulturae</i>, 2025, 11(6): 600</div>
+            <div class="tags"><span class="tag">SCI</span></div>
+          </li>
+          <li>
+            <div class="pub-title"><a href="https://doi.org/10.3390/agronomy15051088" target="_blank" rel="noopener">ASE-YOLOv8n: A Method for Cherry Tomato Ripening Detection</a></div>
+            <div class="pub-authors">Xuemei Liang, Haojie Jia, Hao Wang, Lijuan Zhang, Dongming Li, <span class="me">Zhanchen Wei</span>, Haohai You, Xiaoru Wan, Ruixin Li, Wei Li, Minglai Yang</div>
+            <div class="pub-venue"><i>Agronomy</i>, 2025, 15(5): 1088</div>
+            <div class="tags"><span class="tag">SCI</span></div>
+          </li>
+          <li>
+            <div class="pub-title"><a href="https://doi.org/10.3390/agriculture14081353" target="_blank" rel="noopener">DGS-YOLOv8: A Method for Ginseng Appearance Quality Detection</a></div>
+            <div class="pub-authors">Lijuan Zhang, Haohai You, <span class="me">Zhanchen Wei</span>, Zhiyi Li, Haojie Jia, Shengpeng Yu, Chunxi Zhao, Yan Lv, Dongming Li</div>
+            <div class="pub-venue"><i>Agriculture</i>, 2024, 14(8): 1353</div>
+            <div class="tags"><span class="tag">SCI</span></div>
+          </li>
+          <li>
+            <div class="pub-title"><a href="https://doi.org/10.3390/horticulturae10070742" target="_blank" rel="noopener">OMC-YOLO: A Lightweight Grading Detection Method for Oyster Mushrooms</a></div>
+            <div class="pub-authors">Lei Shi, <span class="me">Zhanchen Wei</span>, Haohai You, Jiali Wang, Zhuo Bai, Helong Yu, Ruiqing Ji, Chunguang Bi</div>
+            <div class="pub-venue"><i>Horticulturae</i>, 2024, 10(7): 742</div>
+            <div class="tags">
+              <span class="tag hi">SCI Q2 · IF 3.1</span>
+              <span class="tag accent" data-zh="导师外第一作者" data-en="Co-first Author (excl. advisor)">导师外第一作者</span>
+            </div>
+          </li>
+        </ol>
+
+        <h3 class="sub" data-zh="在审" data-en="Under Review">在审</h3>
+        <ol class="pubs">
+          <li>
+            <div class="pub-title">A Knowledge-Distilled Lightweight Detection Framework for Edible Mushroom Recognition in Complex Environments</div>
+            <div class="pub-authors"><span class="me">Zhanchen Wei</span>, et al.</div>
+            <div class="pub-venue"><i>Engineering Applications of Artificial Intelligence</i> — <span data-zh="同行评审中" data-en="under review">同行评审中</span></div>
+            <div class="tags"><span class="tag accent" data-zh="第一作者" data-en="First Author">第一作者</span></div>
+          </li>
+        </ol>
+
+        <h3 class="sub" data-zh="专利" data-en="Patent">专利</h3>
+        <ol class="pubs">
+          <li>
+            <div class="pub-title" data-zh="一种轻量化改进算法的多种食用菌复杂环境下检测方法" data-en="A Lightweight Improved Algorithm for Multi-Species Edible Mushroom Detection in Complex Environments">一种轻量化改进算法的多种食用菌复杂环境下检测方法</div>
+            <div class="pub-authors"><span class="me">Zhanchen Wei</span>, et al.</div>
+            <div class="pub-venue" data-zh="国家发明专利，已公开" data-en="National Invention Patent, published">国家发明专利，已公开</div>
+          </li>
+        </ol>
+      </section>
+
+      <!-- ---------- 研究 ---------- -->
+      <section class="page" id="page-research">
+        <h2 class="page-title" data-zh="研究方向" data-en="Research">研究方向</h2>
+
+        <p data-html data-zh="我的核心问题只有一个：<strong>算力被限制、场景又足够脏的时候，检测模型还能不能守住精度。</strong>围绕这个问题，几个具体的抓手是：" data-en="My core question is narrow: <strong>can a detector hold its accuracy when compute is capped and the scene is messy?</strong> Concretely, I work on:">我的核心问题只有一个：<strong>算力被限制、场景又足够脏的时候，检测模型还能不能守住精度。</strong>围绕这个问题，几个具体的抓手是：</p>
+
+        <h3 class="sec-label" data-zh="关键词" data-en="Topics">关键词</h3>
+        <div class="chips">
+          <span class="chip" data-zh="轻量化目标检测" data-en="Lightweight object detection">轻量化目标检测</span>
+          <span class="chip" data-zh="复杂环境鲁棒性" data-en="Robustness in complex scenes">复杂环境鲁棒性</span>
+          <span class="chip" data-zh="小目标与密集目标" data-en="Small and dense objects">小目标与密集目标</span>
+          <span class="chip" data-zh="知识蒸馏" data-en="Knowledge distillation">知识蒸馏</span>
+          <span class="chip" data-zh="模型剪枝与压缩" data-en="Pruning and compression">模型剪枝与压缩</span>
+          <span class="chip" data-zh="注意力与上下文建模" data-en="Attention and context modelling">注意力与上下文建模</span>
+          <span class="chip" data-zh="边缘端部署" data-en="Edge deployment">边缘端部署</span>
+          <span class="chip" data-zh="LLM Agent 与 RAG" data-en="LLM agents and RAG">LLM Agent 与 RAG</span>
         </div>
-        <div class="pos">Research Member</div>
-        <ul>
-          <li>Smart fungal detection: accurate recognition in complex environments and automated factory grading algorithms.</li>
-          <li>Algorithm optimisation, lightweight design and model training; experiment design, evaluation and paper writing.</li>
-          <li>Contributed to 8 SCI (CAS Q2 and above) and EI papers, and 1 national invention patent.</li>
+
+        <h3 class="sec-label" data-zh="技能" data-en="Skills">技能</h3>
+        <dl class="skills">
+          <dt data-zh="编程" data-en="Languages">编程</dt>
+          <dd>Python · Java · SQL</dd>
+          <dt data-zh="深度学习" data-en="Deep Learning">深度学习</dt>
+          <dd data-zh="PyTorch · 检测 / 分割 / GAN · 知识蒸馏与模型压缩" data-en="PyTorch · detection, segmentation, GAN · knowledge distillation and compression">PyTorch · 检测 / 分割 / GAN · 知识蒸馏与模型压缩</dd>
+          <dt data-zh="大模型" data-en="LLM">大模型</dt>
+          <dd>LangChain · RAG · Tool Calling · Agent</dd>
+          <dt data-zh="工程" data-en="Engineering">工程</dt>
+          <dd>Spring Boot · MyBatis-Plus · Redis · RabbitMQ · Linux · Git</dd>
+          <dt data-zh="工具" data-en="Tools">工具</dt>
+          <dd>OpenCV · LaTeX · Origin · Visio</dd>
+          <dt data-zh="英语" data-en="English">英语</dt>
+          <dd>CET-6 556 · CET-4 593</dd>
+        </dl>
+      </section>
+
+      <!-- ---------- 荣誉 ---------- -->
+      <section class="page" id="page-honors">
+        <h2 class="page-title" data-zh="荣誉与奖项" data-en="Honors">荣誉与奖项</h2>
+        <ul class="honors">
+          <li><span class="y">2024–2026</span><span data-zh="吉林农业大学 研究生一等奖学金" data-en="First-Class Graduate Scholarship, Jilin Agricultural University">吉林农业大学 研究生一等奖学金</span></li>
+          <li><span class="y">2024, 2025</span><span data-zh="吉林农业大学 优秀研究生 · 科研标兵" data-en="Outstanding Graduate Student — Research Excellence, Jilin Agricultural University">吉林农业大学 优秀研究生 · 科研标兵</span></li>
+          <li><span class="y">2024</span><span data-zh="全国大学生信息安全竞赛 东北赛区三等奖" data-en="Third Prize, National College Student Information Security Contest (Northeast Region)">全国大学生信息安全竞赛 东北赛区三等奖</span></li>
+          <li><span class="y">2024</span><span data-zh="全国高校网络技术挑战赛 东北赛区三等奖" data-en="Third Prize, National College Network Technology Challenge (Northeast Region)">全国高校网络技术挑战赛 东北赛区三等奖</span></li>
+          <li><span class="y">2024</span><span data-zh="爱思唯尔（Elsevier）校园大使" data-en="Elsevier Campus Ambassador">爱思唯尔（Elsevier）校园大使</span></li>
+          <li><span class="y">2021</span><span data-zh="南开大学 院级优秀学生" data-en="Outstanding Student (College Level), Nankai University">南开大学 院级优秀学生</span></li>
         </ul>
-      </li>
-    </ul>
-  </section>
+      </section>
 
-  <!-- ==================== SKILLS ==================== -->
-  <section id="skills">
-    <h2>Skills</h2>
-    <dl class="skills">
-      <dt>Languages</dt><dd>Python · Java · SQL</dd>
-      <dt>Deep Learning</dt><dd>PyTorch · detection, segmentation, GAN · model compression and knowledge distillation</dd>
-      <dt>LLM</dt><dd>LangChain · RAG · tool calling · agent design</dd>
-      <dt>Engineering</dt><dd>Spring Boot · MyBatis-Plus · Redis · RabbitMQ · Linux · Git</dd>
-      <dt>Tools</dt><dd>OpenCV · LaTeX · Origin · Visio</dd>
-      <dt>English</dt><dd>CET-6 556 · CET-4 593</dd>
-    </dl>
-  </section>
+      <!-- ---------- 联系 ---------- -->
+      <section class="page" id="page-contact">
+        <h2 class="page-title" data-zh="联系" data-en="Contact">联系</h2>
+        <p data-zh="欢迎就轻量化检测、农业视觉，或博士申请相关的事情联系我。" data-en="I am happy to hear from anyone working on lightweight detection or agricultural vision.">欢迎就轻量化检测、农业视觉，或博士申请相关的事情联系我。</p>
+        <dl class="skills" style="margin-top:26px">
+          <dt>Email</dt><dd><a href="mailto:weizhanchen@126.com">weizhanchen@126.com</a></dd>
+          <dt>Google Scholar</dt><dd><a href="https://scholar.google.com/citations?user=B7e2_BsAAAAJ&hl=en" target="_blank" rel="noopener">B7e2_BsAAAAJ</a></dd>
+          <dt>GitHub</dt><dd><a href="https://github.com/Edward-wei2535" target="_blank" rel="noopener">Edward-wei2535</a></dd>
+          <dt data-zh="简历" data-en="CV">简历</dt><dd><a href="assets/cv.pdf" target="_blank" rel="noopener">cv.pdf</a></dd>
+        </dl>
+      </section>
 
-  <!-- ==================== HONORS ==================== -->
-  <section id="honors">
-    <h2>Honors &amp; Awards</h2>
-    <ul class="honors">
-      <li><span class="y">2024–2026</span><span>First-Class Graduate Scholarship, Jilin Agricultural University</span></li>
-      <li><span class="y">2024, 2025</span><span>Outstanding Graduate Student — Research Excellence, Jilin Agricultural University</span></li>
-      <li><span class="y">2024</span><span>Third Prize, National College Student Information Security Contest (Northeast Region)</span></li>
-      <li><span class="y">2024</span><span>Third Prize, National College Network Technology Challenge (Northeast Region)</span></li>
-      <li><span class="y">2024</span><span>Elsevier Campus Ambassador</span></li>
-      <li><span class="y">2021</span><span>Outstanding Student (College Level), Nankai University</span></li>
-    </ul>
-  </section>
-
-  <!-- ==================== CONTACT ==================== -->
-  <section id="contact">
-    <h2>Contact</h2>
-    <p style="font-size:15.8px">
-      Email: <a href="mailto:weizhanchen@126.com">weizhanchen@126.com</a><br>
-      GitHub: <a href="https://github.com/Edward-wei2535" target="_blank" rel="noopener">github.com/Edward-wei2535</a><br>
-      Google Scholar: <a href="https://scholar.google.com/citations?user=B7e2_BsAAAAJ&hl=en" target="_blank" rel="noopener">B7e2_BsAAAAJ</a>
-    </p>
-    <p style="font-size:15.8px;color:var(--muted)">
-      I am happy to hear from anyone working on lightweight detection or agricultural vision.
-    </p>
-  </section>
-
-  <footer>
-    <span>© 2026 Zhanchen Wei</span>
-    <span>Last updated: October 2026</span>
-  </footer>
-
+    </div>
+  </main>
 </div>
+
+<!-- ================= 语言切换（右上角固定） ================= -->
+<div class="lang-switch" role="group" aria-label="Language / 语言">
+  <button type="button" data-lang="zh">中文</button>
+  <button type="button" data-lang="en">EN</button>
+</div>
+
+<!-- ================= 底部导航 ================= -->
+<nav class="dock">
+  <button type="button" data-tab="home" class="active">
+    <svg viewBox="0 0 24 24"><path d="M12 3 2 12h3v9h6v-6h2v6h6v-9h3L12 3Z"/></svg>
+    <span data-zh="主页" data-en="Home">主页</span>
+  </button>
+  <button type="button" data-tab="publications">
+    <svg viewBox="0 0 24 24"><path d="M6 2h9l5 5v15H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Zm8 1.5V8h4.5L14 3.5ZM8 12h8v1.6H8V12Zm0 4h8v1.6H8V16Z"/></svg>
+    <span data-zh="论文" data-en="Publications">论文</span>
+  </button>
+  <button type="button" data-tab="research">
+    <svg viewBox="0 0 24 24"><path d="M9 2h6v2h-1v4.6l4.7 8.1A2.5 2.5 0 0 1 16.5 21h-9a2.5 2.5 0 0 1-2.2-4.3L10 8.6V4H9V2Zm3 8.2L8.3 16h7.4L12 10.2Z"/></svg>
+    <span data-zh="研究" data-en="Research">研究</span>
+  </button>
+  <button type="button" data-tab="honors">
+    <svg viewBox="0 0 24 24"><path d="M12 2a6 6 0 0 1 3.7 10.7l1 5.3L12 15.6 7.3 18l1-5.3A6 6 0 0 1 12 2Zm0 3a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z"/></svg>
+    <span data-zh="荣誉" data-en="Honors">荣誉</span>
+  </button>
+  <button type="button" data-tab="contact">
+    <svg viewBox="0 0 24 24"><path d="M2 5.5A2.5 2.5 0 0 1 4.5 3h15A2.5 2.5 0 0 1 22 5.5v13a2.5 2.5 0 0 1-2.5 2.5h-15A2.5 2.5 0 0 1 2 18.5v-13Zm2.2.3 7.8 6.2 7.8-6.2H4.2Z"/></svg>
+    <span data-zh="联系" data-en="Contact">联系</span>
+  </button>
+</nav>
+
+<script>
+(function () {
+  var LANG_KEY = "zw-lang";
+  var content = document.getElementById("content");
+  var tabs = Array.prototype.slice.call(document.querySelectorAll(".dock button"));
+  var pages = Array.prototype.slice.call(document.querySelectorAll(".page"));
+
+  /* ---------- 模块切换 ---------- */
+  function show(tab) {
+    var known = false;
+    tabs.forEach(function (b) {
+      var on = b.dataset.tab === tab;
+      b.classList.toggle("active", on);
+      if (on) known = true;
+    });
+    if (!known) {
+      tab = "home";
+      tabs[0].classList.add("active");
+    }
+    pages.forEach(function (p) {
+      p.classList.toggle("active", p.id === "page-" + tab);
+    });
+    content.scrollTop = 0;
+    window.scrollTo(0, 0);
+    if (history.replaceState) history.replaceState(null, "", "#" + tab);
+  }
+
+  tabs.forEach(function (b) {
+    b.addEventListener("click", function () { show(b.dataset.tab); });
+  });
+
+  /* ---------- 语言切换 ---------- */
+  function setLang(lang) {
+    document.querySelectorAll("[data-zh]").forEach(function (el) {
+      var t = lang === "zh" ? el.dataset.zh : el.dataset.en;
+      if (t == null) return;
+      if (el.hasAttribute("data-html")) el.innerHTML = t;
+      else el.textContent = t;
+    });
+    document.querySelectorAll(".lang-switch button").forEach(function (b) {
+      b.classList.toggle("active", b.dataset.lang === lang);
+    });
+    document.documentElement.lang = lang === "zh" ? "zh-CN" : "en";
+    try { localStorage.setItem(LANG_KEY, lang); } catch (e) {}
+  }
+
+  document.querySelectorAll(".lang-switch button").forEach(function (b) {
+    b.addEventListener("click", function () { setLang(b.dataset.lang); });
+  });
+
+  var saved = null;
+  try { saved = localStorage.getItem(LANG_KEY); } catch (e) {}
+  var qLang = null;
+  try { qLang = new URLSearchParams(location.search).get("lang"); } catch (e) {}
+  setLang(qLang === "en" || qLang === "zh" ? qLang : (saved === "en" ? "en" : "zh"));
+
+  show((location.hash || "").replace("#", "") || "home");
+})();
+</script>
 </body>
 </html>
